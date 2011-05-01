@@ -15,8 +15,9 @@ public class Player
      */
     public Player()
     {
+        currentRoom = new Room("starting room");
         // initialise instance variables
-        x = 0;
+        // x = 0;
     }
 
     /**
@@ -25,9 +26,13 @@ public class Player
      * @param  y   a sample parameter for a method
      * @return     the sum of x and y 
      */
-    public int sampleMethod(int y)
+    public Room getCurrentRoom()
     {
-        // put your code here
-        return x + y;
+        return currentRoom;
+    }
+    
+    public void setCurrentRoom(Room newRoom)
+    {
+        currentRoom = newRoom;
     }
 }

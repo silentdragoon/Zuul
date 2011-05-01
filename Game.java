@@ -18,6 +18,7 @@
 public class Game 
 {
     private Parser parser;
+    private Player player;
     private Room currentRoom;
         
     /**
@@ -27,6 +28,8 @@ public class Game
     {
         createRooms();
         parser = new Parser();
+        player = new Player();
+        Room currentRoom = player.getCurrentRoom();
     }
 
     /**
@@ -35,6 +38,7 @@ public class Game
     private void createRooms()
     {
         Room outside, theatre, pub, lab, office;
+        Player player = new Player();
       
         // create the rooms
         outside = new Room("outside the main entrance of the university");
@@ -62,7 +66,8 @@ public class Game
         outside.setItem("otter", "a cute otter");
         theatre.setItem("sandwich", "a delicious sandwich");
 
-        currentRoom = outside;  // start game outside
+        player.setCurrentRoom(outside);  // start game outside
+        currentRoom = player.getCurrentRoom();
     }
 
     /**
