@@ -64,19 +64,20 @@ public class Player
         inventory.put(name, newItem);
     }
     
-    public boolean dropInventory(String name)
+    public Item dropInventory(String name)
     {
         Set<String> keys = inventory.keySet();
         for(String item : keys) {
             if (item.equals(name))
             {
+                Item temp = inventory.get(name);
                 inventory.remove(name);
-                return true;
+                return temp;
 
             }   
         }
         System.out.println("We've haven't got one!");
-        return false;
+        return null;
 
     }
 }

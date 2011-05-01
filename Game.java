@@ -66,9 +66,7 @@ public class Game
         
         player.addInventory("bagel", "half a blueberry bagel");
 
-        System.out.println(player.getCurrentRoom().getShortDescription());
         player.setCurrentRoom(outside);  // start game outside
-        System.out.println(player.getCurrentRoom().getShortDescription());
     }
 
     /**
@@ -86,7 +84,7 @@ public class Game
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
-        System.out.println("Thank you for playing.  Good bye.");
+        System.out.println("Thank you for playing.  Goodbye.");
     }
 
     /**
@@ -185,11 +183,13 @@ public class Game
         String droppedItem = command.getSecondWord();
         
         // Drop it
-        if (player.dropInventory(droppedItem))
+        
+        Item temp = player.dropInventory(droppedItem);
+        if (temp != null)
         {
             
             // Add it to the room's items
-            player.getCurrentRoom().setItem(droppedItem, "lol");
+            player.getCurrentRoom().setItem(temp.getName(), temp.getDescription());
             
             // Refresh inventory
             System.out.println(player.getCurrentRoom().getLongDescription());
@@ -209,10 +209,11 @@ public class Game
         String desiredItem = command.getSecondWord();
               
         // Remove it from the room's items
-        if (player.getCurrentRoom().delItem(desiredItem))
+        Item temp = player.getCurrentRoom().delItem(desiredItem);
+        if (temp != null)
         {     
             // Add it to player's inventory
-            player.addInventory(desiredItem,"lol");
+            player.addInventory(temp.getName(), temp.getDescription());
             
             // Refresh inventory
             System.out.println(player.getCurrentRoom().getLongDescription());
