@@ -166,6 +166,7 @@ public class Game
         else {
             player.setCurrentRoom(nextRoom);
             System.out.println(player.getCurrentRoom().getLongDescription());
+            System.out.println(player.getInventoryString());
         }
     }
 
