@@ -66,6 +66,9 @@ public class Game
         outside.setItem("otter", "a cute otter");
         theatre.setItem("sandwich", "a delicious sandwich");
 
+        // TODO: It seems really weird to set something then immediately get it,
+        // there must be a better way.
+
         player.setCurrentRoom(outside);  // start game outside
         currentRoom = player.getCurrentRoom();
     }
