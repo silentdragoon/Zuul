@@ -19,17 +19,16 @@ public class Game
 {
     private Parser parser;
     private Player player;
-    private Room currentRoom;
         
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
+        player = new Player();
         createRooms();
         parser = new Parser();
-        player = new Player();
-        Room currentRoom = player.getCurrentRoom();
+
     }
 
     /**
@@ -38,7 +37,6 @@ public class Game
     private void createRooms()
     {
         Room outside, theatre, pub, lab, office;
-        Player player = new Player();
       
         // create the rooms
         outside = new Room("outside the main entrance of the university");
@@ -68,11 +66,9 @@ public class Game
         
         player.addInventory("bagel", "half a blueberry bagel");
 
-        // TODO: It seems really weird to set something then immediately get it,
-        // there must be a better way.
-
+        System.out.println(player.getCurrentRoom().getShortDescription());
         player.setCurrentRoom(outside);  // start game outside
-        currentRoom = player.getCurrentRoom();
+        System.out.println(player.getCurrentRoom().getShortDescription());
     }
 
     /**
@@ -103,7 +99,7 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        System.out.println(currentRoom.getLongDescription());
+        System.out.println(player.getCurrentRoom().getLongDescription());
         System.out.println(player.getInventoryString());
     }
 
@@ -163,13 +159,13 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
+        Room nextRoom = player.getCurrentRoom().getExit(direction);
 
         if (nextRoom == null)
             System.out.println("There is no door!");
         else {
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getLongDescription());
+            player.setCurrentRoom(nextRoom);
+            System.out.println(player.getCurrentRoom().getLongDescription());
         }
     }
 
