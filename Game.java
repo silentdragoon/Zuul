@@ -59,6 +59,8 @@ public class Game
         
         // initialise room items
         outside.setItem("key", "an awesome key");
+        outside.setItem("otter", "a cute otter");
+        theatre.setItem("sandwich", "a delicious sandwich");
 
         currentRoom = outside;  // start game outside
     }

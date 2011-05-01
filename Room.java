@@ -34,8 +34,18 @@ public class Room
         items = new HashMap<String, Item>();
     }
     
-    public void setItem(String description, String name)
+    public void setItem(String name, String description)
     {
+        // Check to see if the item already exists in the items list
+        // If it is, just don't add it.
+        // TODO: Make sure this is the correct behavior. Also, perhaps
+        // make sure that the name is indeed one word?
+        
+        Set<String> keys = items.keySet();
+        for(String item : keys)
+            if (item == name)
+                return;
+        
         Item newItem = new Item(description, name);
         items.put(name, newItem);
     }
