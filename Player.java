@@ -1,3 +1,6 @@
+import java.util.Set;
+import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Write a description of class Player here.
@@ -9,6 +12,7 @@ public class Player
 {
     // instance variables - replace the example below with your own
     private Room currentRoom;
+    private HashMap<String, Item> inventory;
 
     /**
      * Constructor for objects of class Player
@@ -16,6 +20,7 @@ public class Player
     public Player()
     {
         currentRoom = new Room("starting room");
+        inventory = new HashMap<String, Item>();
         // initialise instance variables
         // x = 0;
     }
@@ -34,5 +39,25 @@ public class Player
     public void setCurrentRoom(Room newRoom)
     {
         currentRoom = newRoom;
+    }
+    
+    public String getInventoryString()
+    {
+        String returnString = "Inventory:";
+        Set<String> keys = inventory.keySet();
+        for(String item : keys)
+            returnString += " " + item;
+        return returnString;
+    }
+    
+    public void addInventory(String name, String description)
+    {
+        Item newItem = new Item(description, name);
+        inventory.put(name, newItem);
+    }
+    
+    public void dropInventory(String name)
+    {
+        inventory.remove(name);
     }
 }

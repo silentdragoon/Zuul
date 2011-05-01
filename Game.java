@@ -65,6 +65,8 @@ public class Game
         outside.setItem("key", "an awesome key");
         outside.setItem("otter", "a cute otter");
         theatre.setItem("sandwich", "a delicious sandwich");
+        
+        player.addInventory("bagel", "half a blueberry bagel");
 
         // TODO: It seems really weird to set something then immediately get it,
         // there must be a better way.
@@ -102,6 +104,7 @@ public class Game
         System.out.println("Type 'help' if you need help.");
         System.out.println();
         System.out.println(currentRoom.getLongDescription());
+        System.out.println(player.getInventoryString());
     }
 
     /**
