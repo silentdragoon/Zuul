@@ -122,6 +122,10 @@ public class Game
             printHelp();
         else if (commandWord.equals("go"))
             goRoom(command);
+        else if (commandWord.equals("drop"))
+            dropItem(command);
+        else if (commandWord.equals("take"))
+            takeItem(command);
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
@@ -168,6 +172,51 @@ public class Game
             System.out.println(player.getCurrentRoom().getLongDescription());
             System.out.println(player.getInventoryString());
         }
+    }
+    
+    private void dropItem(Command command)
+    {
+        if (!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to drop...
+            System.out.println("Drop what?");
+            return;
+        }
+        
+        String droppedItem = command.getSecondWord();
+        
+        // Drop it
+        player.dropInventory(droppedItem);
+        
+        // Add it to the room's items
+        player.getCurrentRoom().setItem(droppedItem, "lol");
+        
+        // Refresh inventory
+        System.out.println(player.getCurrentRoom().getLongDescription());
+        System.out.println(player.getInventoryString());
+        
+        
+    }
+    
+    private void takeItem(Command command)
+    {
+       if (!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to drop...
+            System.out.println("Take what?");
+            return;
+        }
+        
+        String desiredItem = command.getSecondWord();
+              
+        // Remove it from the room's items
+        player.getCurrentRoom().delItem(desiredItem);
+        
+        // Add it to player's inventory
+        
+        player.addInventory(desiredItem,"lol");
+        
+        // Refresh inventory
+        System.out.println(player.getCurrentRoom().getLongDescription());
+        System.out.println(player.getInventoryString());
     }
 
     /** 

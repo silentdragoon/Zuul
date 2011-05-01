@@ -38,6 +38,7 @@ public class Room
     {
         // Check to see if the item already exists in the items list
         // If it is, just don't add it.
+        
         // TODO: Make sure this is the correct behavior. Also, perhaps
         // make sure that the name is indeed one word?
         
@@ -48,6 +49,25 @@ public class Room
         
         Item newItem = new Item(description, name);
         items.put(name, newItem);
+    }
+    
+    public void delItem(String name)
+    {
+    
+        // TODO: Make this actually check for items, and remove them iff
+        // they are found.
+    
+        Set<String> keys = items.keySet();
+        for(String item : keys) {
+            if (item.equals(name))
+            {
+                items.remove(name);
+                return;
+            }            
+        }
+        System.out.println("That isn't here.");
+        return;
+        
     }
 
     /**
