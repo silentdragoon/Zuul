@@ -185,15 +185,16 @@ public class Game
         String droppedItem = command.getSecondWord();
         
         // Drop it
-        player.dropInventory(droppedItem);
-        
-        // Add it to the room's items
-        player.getCurrentRoom().setItem(droppedItem, "lol");
-        
-        // Refresh inventory
-        System.out.println(player.getCurrentRoom().getLongDescription());
-        System.out.println(player.getInventoryString());
-        
+        if (player.dropInventory(droppedItem))
+        {
+            
+            // Add it to the room's items
+            player.getCurrentRoom().setItem(droppedItem, "lol");
+            
+            // Refresh inventory
+            System.out.println(player.getCurrentRoom().getLongDescription());
+            System.out.println(player.getInventoryString());
+        }      
         
     }
     
@@ -208,15 +209,15 @@ public class Game
         String desiredItem = command.getSecondWord();
               
         // Remove it from the room's items
-        player.getCurrentRoom().delItem(desiredItem);
-        
-        // Add it to player's inventory
-        
-        player.addInventory(desiredItem,"lol");
-        
-        // Refresh inventory
-        System.out.println(player.getCurrentRoom().getLongDescription());
-        System.out.println(player.getInventoryString());
+        if (player.getCurrentRoom().delItem(desiredItem))
+        {     
+            // Add it to player's inventory
+            player.addInventory(desiredItem,"lol");
+            
+            // Refresh inventory
+            System.out.println(player.getCurrentRoom().getLongDescription());
+            System.out.println(player.getInventoryString());
+        }
     }
 
     /** 

@@ -51,7 +51,7 @@ public class Room
         items.put(name, newItem);
     }
     
-    public void delItem(String name)
+    public boolean delItem(String name)
     {
     
         // TODO: Make this actually check for items, and remove them iff
@@ -62,11 +62,11 @@ public class Room
             if (item.equals(name))
             {
                 items.remove(name);
-                return;
+                return true;
             }            
         }
         System.out.println("That isn't here.");
-        return;
+        return false;
         
     }
 

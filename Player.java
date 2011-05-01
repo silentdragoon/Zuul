@@ -53,25 +53,30 @@ public class Player
     public void addInventory(String name, String description)
     {
         Set<String> keys = inventory.keySet();
-        for(String item : keys)
+        for(String item : keys) {
             if (item.equals(name))
             {
                 System.out.println("We've already got one!");
                 return;
             }   
+        }
         Item newItem = new Item(description, name);
         inventory.put(name, newItem);
     }
     
-    public void dropInventory(String name)
+    public boolean dropInventory(String name)
     {
         Set<String> keys = inventory.keySet();
-        for(String item : keys)
+        for(String item : keys) {
             if (item.equals(name))
             {
-                System.out.println("We've haven't got one!");
-                return;
+                inventory.remove(name);
+                return true;
+
             }   
-        inventory.remove(name);
+        }
+        System.out.println("We've haven't got one!");
+        return false;
+
     }
 }
