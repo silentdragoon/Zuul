@@ -54,7 +54,7 @@ public class Player
     {
         Set<String> keys = inventory.keySet();
         for(String item : keys)
-            if (item == name)
+            if (item.equals(name))
             {
                 System.out.println("We've already got one!");
                 return;
@@ -67,7 +67,7 @@ public class Player
     {
         Set<String> keys = inventory.keySet();
         for(String item : keys)
-            if (item == name)
+            if (item.equals(name))
             {
                 System.out.println("We've haven't got one!");
                 return;

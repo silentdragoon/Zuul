@@ -44,7 +44,7 @@ public class Room
         
         Set<String> keys = items.keySet();
         for(String item : keys)
-            if (item == name)
+            if (item.equals(name))
                 return;
         
         Item newItem = new Item(description, name);
