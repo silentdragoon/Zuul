@@ -64,6 +64,11 @@ public class Player
         inventory.put(name, newItem);
     }
     
+    public void addInventory(Item item)
+    {
+        inventory.put(item.getName(), item);
+    }
+    
     public Item dropInventory(String name)
     {
         Set<String> keys = inventory.keySet();
@@ -79,5 +84,12 @@ public class Player
         System.out.println("We've haven't got one!");
         return null;
 
+    }
+    
+    public Item dropInventory()
+    {
+        Item temp = inventory.entrySet().iterator().next().getValue();
+        inventory.clear();
+        return temp;
     }
 }

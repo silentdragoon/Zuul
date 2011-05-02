@@ -21,6 +21,7 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;        // stores exits of this room.
     private HashMap<String, Item> items;        // stores items of this room.
+    private HashMap<String, NPC> npcs;
 
     /**
      * Create a room described "description". Initially, it has no exits.
@@ -32,6 +33,20 @@ public class Room
         this.description = description;
         exits = new HashMap<String, Room>();
         items = new HashMap<String, Item>();
+        npcs = new HashMap<String, NPC>();
+    }
+    
+    public void addNPC(String name, String description, String itemname, String itemdesc)
+    {
+    
+        Set<String> keys = npcs.keySet();
+        for(String npc : keys)
+            if (npc.equals(name))
+                return;
+    
+        NPC newNPC = new NPC(name, description, itemname, itemdesc);
+        npcs.put(name, newNPC);
+        
     }
     
     public void setItem(String name, String description)
@@ -95,7 +110,7 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString() + ".\n" + getItemString();
+        return "You are " + description + ".\n" + getExitString() + "\n" + getItemString() + "\n" + getNPCString();
     }
 
     /**
@@ -119,6 +134,15 @@ public class Room
             returnString += " " + item;
         return returnString;
     }
+    
+    private String getNPCString()
+    {
+        String returnString = "NPCS:";
+        Set<String> keys = npcs.keySet();
+        for(String npc : keys)
+            returnString += " " + npc;
+        return returnString;
+    }
 
     /**
      * Return the room that is reached if we go from this room in direction
@@ -133,5 +157,10 @@ public class Room
     {
         return items.get(name);
     }
+    
+    public NPC getNPC()
+    {
+        return npcs.entrySet().iterator().next().getValue();
+    }    
 }
 

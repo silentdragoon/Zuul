@@ -19,6 +19,7 @@ public class Game
 {
     private Parser parser;
     private Player player;
+    private NPC porter;
         
     /**
      * Create the game and initialise its internal map.
@@ -60,11 +61,15 @@ public class Game
         office.setExit("west", lab);
         
         // initialise room items
-        outside.setItem("key", "an awesome key");
-        outside.setItem("otter", "a cute otter");
+        outside.setItem("yeflask", "it looks like you can get ye flask");
         theatre.setItem("sandwich", "a delicious sandwich");
         
         player.addInventory("bagel", "half a blueberry bagel");
+        
+        // TODO: Figure out this NPC thing.
+        
+
+        outside.addNPC("Dennis", "A helpful porter", "key", "a sweet key");
 
         player.setCurrentRoom(outside);  // start game outside
     }
@@ -124,6 +129,8 @@ public class Game
             dropItem(command);
         else if (commandWord.equals("take"))
             takeItem(command);
+        else if (commandWord.equals("trade"))
+            tradeItem(command);
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
@@ -219,6 +226,43 @@ public class Game
             System.out.println(player.getCurrentRoom().getLongDescription());
             System.out.println(player.getInventoryString());
         }
+    }
+    
+    private void tradeItem(Command command)
+    {
+       if (!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to drop...
+            System.out.println("Trade what?");
+            return;
+        }
+        
+        String tradingItem = command.getSecondWord();
+        
+        // find player's current room
+        
+        NPC npc = player.getCurrentRoom().getNPC();
+        
+        // get NPCs in room
+        
+        // remove NPC item
+        
+        Item tempItem = npc.dropInventory();
+        
+        // add NPC item to player inventory
+        
+        player.addInventory(tempItem);
+        
+        // remove player item
+        
+        Item tempPlayerItem = player.dropInventory(tradingItem);
+        
+        // add player item to NPC inventory
+        
+        npc.addInventory(tempPlayerItem);
+        
+        // print out inventory
+        
+        System.out.println(player.getInventoryString());
     }
 
     /** 
