@@ -50,6 +50,14 @@ public class Player
         return returnString;
     }
     
+    public String getExamineString(String name)
+    {
+        String returnString = "You examine the " + name + ".\n";
+        Item temp = inventory.get(name);
+        returnString += "It's " + temp.getDescription() + ".";
+        return returnString;
+    }
+    
     public void addInventory(String name, String description)
     {
         Set<String> keys = inventory.keySet();

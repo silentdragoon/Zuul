@@ -49,11 +49,11 @@ public class Game
         // initialise room exits
         outside.setExit("east", theatre);
         outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        outside.setExit("dennis", pub);
 
         theatre.setExit("west", outside);
 
-        pub.setExit("east", outside);
+        pub.setExit("undennis", outside);
 
         lab.setExit("north", outside);
         lab.setExit("east", office);
@@ -61,15 +61,16 @@ public class Game
         office.setExit("west", lab);
         
         // initialise room items
-        outside.setItem("yeflask", "it looks like you can get ye flask");
+        outside.setItem("flask", "pretty spangly. It looks like you've got ye flask");
         theatre.setItem("sandwich", "a delicious sandwich");
+        lab.setItem("gold", "just some gold, sitting around");
         
         player.addInventory("bagel", "half a blueberry bagel");
         
         // TODO: Figure out this NPC thing.
         
 
-        outside.addNPC("Dennis", "A helpful porter", "key", "a sweet key");
+        outside.addNPC("The Cheat", "A helpful porter", "key", "a sweet key");
 
         player.setCurrentRoom(outside);  // start game outside
     }
@@ -131,6 +132,8 @@ public class Game
             takeItem(command);
         else if (commandWord.equals("trade"))
             tradeItem(command);
+        else if (commandWord.equals("examine"))
+            examineItem(command);
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
@@ -263,6 +266,18 @@ public class Game
         // print out inventory
         
         System.out.println(player.getInventoryString());
+    }
+    
+    private void examineItem(Command command)
+    {
+       if (!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to drop...
+            System.out.println("Examine what?");
+            return;
+        }
+            
+        System.out.println(player.getExamineString(command.getSecondWord()));
+        return;
     }
 
     /** 
