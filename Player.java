@@ -54,8 +54,11 @@ public class Player
     {
         String returnString = "You examine the " + name + ".\n";
         Item temp = inventory.get(name);
-        returnString += "It's " + temp.getDescription() + ".";
-        return returnString;
+        if (temp != null) {
+            returnString += "It's " + temp.getDescription() + ".";
+            return returnString;
+        }
+        return "You can only examine items in your inventory.";
     }
     
     public void addInventory(String name, String description)

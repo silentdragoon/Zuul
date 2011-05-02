@@ -19,7 +19,7 @@ import java.util.Iterator;
 public class Room 
 {
     private String description;
-    private HashMap<String, Room> exits;        // stores exits of this room.
+    private HashMap<String, Exit> exits;        // stores exits of this room.
     private HashMap<String, Item> items;        // stores items of this room.
     private HashMap<String, NPC> npcs;
 
@@ -31,7 +31,7 @@ public class Room
     public Room(String description) 
     {
         this.description = description;
-        exits = new HashMap<String, Room>();
+        exits = new HashMap<String, Exit>();
         items = new HashMap<String, Item>();
         npcs = new HashMap<String, NPC>();
     }
@@ -91,7 +91,8 @@ public class Room
      */
     public void setExit(String direction, Room neighbor) 
     {
-        exits.put(direction, neighbor);
+        Exit temp = new Exit(direction, neighbor);
+        exits.put(direction, temp);
     }
 
     /**
@@ -150,7 +151,7 @@ public class Room
      */
     public Room getExit(String direction) 
     {
-        return exits.get(direction);
+        return exits.get(direction).getNeighbor();
     }
     
     public Item getItem(String name)

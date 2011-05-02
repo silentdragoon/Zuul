@@ -66,11 +66,8 @@ public class Game
         lab.setItem("gold", "just some gold, sitting around");
         
         player.addInventory("bagel", "half a blueberry bagel");
-        
-        // TODO: Figure out this NPC thing.
-        
 
-        outside.addNPC("The Cheat", "A helpful porter", "key", "a sweet key");
+        outside.addNPC("Dwarf", "A helpful Dwarf", "key", "a sweet key");
 
         player.setCurrentRoom(outside);  // start game outside
     }
