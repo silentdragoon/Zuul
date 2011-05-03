@@ -38,6 +38,9 @@ public class Room
         doors = new HashMap<String, Door>();
     }
     
+    /**
+     * Adds an NPC described by a name/desc and with an item of name/desc to the room.
+     */
     public void addNPC(String name, String description, String itemname, String itemdesc)
     {
     
@@ -51,14 +54,14 @@ public class Room
         
     }
     
+    /**
+     * Adds an item to the items list, if it's there already just don't add it.
+     */
     public void setItem(String name, String description)
     {
         // Check to see if the item already exists in the items list
         // If it is, just don't add it.
-        
-        // TODO: Make sure this is the correct behavior. Also, perhaps
-        // make sure that the name is indeed one word?
-        
+               
         Set<String> keys = items.keySet();
         for(String item : keys)
             if (item.equals(name))
@@ -68,12 +71,13 @@ public class Room
         items.put(name, newItem);
     }
     
+    
+    /**
+     * Removes an item from the room and returns it.
+     */
     public Item delItem(String name)
     {
-    
-        // TODO: Make this actually check for items, and remove them iff
-        // they are found.
-    
+     
         Set<String> keys = items.keySet();
         for(String item : keys) {
             if (item.equals(name))
@@ -97,6 +101,9 @@ public class Room
         exits.put(direction, temp);
     }
     
+    /**
+     * Defines a lockable exit, or door, for the room.
+     */
     public void setDoor(String direction, Room neighbor, boolean locked)
     {
         Door temp = new Door(direction, neighbor, locked);
@@ -135,6 +142,10 @@ public class Room
         return returnString;
     }
     
+    /**
+     * Return a string containing the room's doors, for example
+     * "Doors: portal".
+     */
     private String getDoorString()
     {
         String returnString = "Doors:";
@@ -144,6 +155,9 @@ public class Room
         return returnString;
     }
     
+    /**
+     * Return a string containing the room's items.
+     */
     private String getItemString()
     {
         String returnString = "Items:";
@@ -153,6 +167,9 @@ public class Room
         return returnString;
     }
     
+    /**
+     * Return a string containing the NPCs in a room.
+     */
     private String getNPCString()
     {
         String returnString = "NPCS:";
@@ -176,6 +193,10 @@ public class Room
         return null;
     }
     
+    /**
+     * Return the room reached if we go from this room in direction "direction."
+     * If there is no room in that direction, return null.
+     */
     public Room getDoor(String direction)
     {
         Door tempDoor = doors.get(direction);

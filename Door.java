@@ -1,8 +1,9 @@
 
 /**
- * Write a description of class Door here.
+ * Door.java. Stores information and provides locking
+ * and unlocking of doors, lockable exits in Zuul.
  * 
- * @author (your name) 
+ * @author William S. Judd
  * @version (a version number or a date)
  */
 public class Door extends Exit
@@ -21,12 +22,9 @@ public class Door extends Exit
         this.setNeighbor(neighbor);
         
     }
-
+     
     /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
+     * Locks this door.
      */
     public void lock()
     {
@@ -34,6 +32,9 @@ public class Door extends Exit
         return;
     }
     
+    /**
+     * Unlocks this door.
+     */
     public void unlock()
     {
         locked = false;

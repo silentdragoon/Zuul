@@ -3,34 +3,21 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 /**
- * Write a description of class Player here.
+ * Player.java. Stores information about the player character and his inventory.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author William S. Judd
  */
 public class Player
 {
-    // instance variables - replace the example below with your own
     private Room currentRoom;
     private HashMap<String, Item> inventory;
 
-    /**
-     * Constructor for objects of class Player
-     */
     public Player()
     {
         currentRoom = new Room("starting room");
         inventory = new HashMap<String, Item>();
-        // initialise instance variables
-        // x = 0;
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
     public Room getCurrentRoom()
     {
         return currentRoom;
@@ -41,6 +28,10 @@ public class Player
         currentRoom = newRoom;
     }
     
+    /**
+     * Iterates through the inventory, adding all items
+     * to a String, then returns it.
+     */
     public String getInventoryString()
     {
         String returnString = "Inventory:";
@@ -50,6 +41,9 @@ public class Player
         return returnString;
     }
     
+    /**
+     * Checks the player's inventory to see if we have a key.
+     */
     public boolean checkKey()
     {
         Set<String> keys = inventory.keySet();
@@ -59,6 +53,9 @@ public class Player
         return false;
     }
     
+    /**
+     * Returns a string that has the description of the examined item.
+     */
     public String getExamineString(String name)
     {
         String returnString = "You examine the " + name + ".\n";
@@ -70,6 +67,9 @@ public class Player
         return "You can only examine items in your inventory.";
     }
     
+    /**
+     * Adds the item of name and description to the inventory.
+     */
     public void addInventory(String name, String description)
     {
         Set<String> keys = inventory.keySet();
@@ -83,12 +83,18 @@ public class Player
         Item newItem = new Item(description, name);
         inventory.put(name, newItem);
     }
-    
+   
+    /**
+     * Directly adds an item to the inventory.
+     */
     public void addInventory(Item item)
     {
         inventory.put(item.getName(), item);
     }
     
+    /**
+     * Drops an item from the inventory, returning it.
+     */
     public Item dropInventory(String name)
     {
         Set<String> keys = inventory.keySet();
@@ -105,7 +111,10 @@ public class Player
         return null;
 
     }
-    
+   
+    /**
+     * Drops all items from the inventory, returning the first.
+     */
     public Item dropInventory()
     {
         Item temp = inventory.entrySet().iterator().next().getValue();

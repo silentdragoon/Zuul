@@ -146,6 +146,11 @@ public class Game
 
     // implementations of user commands:
     
+    
+    /** 
+     * "Lock" was entered. Locks the specified door, if a key's in
+     * the player's inventory, otherwise throws an error.
+     */
     private void lockDoor(Command command)
     {
         if(!command.hasSecondWord())
@@ -167,6 +172,10 @@ public class Game
         }
     }
     
+    /** 
+     * "Unlock" was entered. Unlocks the specified door, if a key's in
+     * the player's inventory, otherwise throws an error.
+     */
     private void unlockDoor(Command command)
     {
         if(!command.hasSecondWord())
@@ -206,7 +215,8 @@ public class Game
 
     /** 
      * Try to go to one direction. If there is an exit, enter the new
-     * room, otherwise print an error message.
+     * room, otherwise print an error message. If there's a door, try
+     * to go through it. If it's locked, print an error message.
      */
     private void goRoom(Command command) 
     {
@@ -252,6 +262,10 @@ public class Game
             }
     }
     
+    /** 
+     * "Drop" was entered. Drops the specified item if it's in 
+     * the player's inventory, otherwise throws an error.
+     */
     private void dropItem(Command command)
     {
         if (!command.hasSecondWord()) {
@@ -278,6 +292,10 @@ public class Game
         
     }
     
+    /** 
+     * "Take" was entered. Takes the specified item if it's in 
+     * the room, otherwise throws an error.
+     */
     private void takeItem(Command command)
     {
        if (!command.hasSecondWord()) {
@@ -301,6 +319,10 @@ public class Game
         }
     }
     
+    /** 
+     * "Trade" was entered. Trades the specified item if it's in 
+     * the player's inventory, otherwise throws an error.
+     */
     private void tradeItem(Command command)
     {
        if (!command.hasSecondWord()) {
@@ -311,12 +333,10 @@ public class Game
         
         String tradingItem = command.getSecondWord();
         
-        // find player's current room
-        
-        NPC npc = player.getCurrentRoom().getNPC();
-        
         // get NPCs in room
         
+        NPC npc = player.getCurrentRoom().getNPC();
+                   
         // remove NPC item
         
         Item tempItem = npc.dropInventory();
@@ -329,6 +349,12 @@ public class Game
         
         Item tempPlayerItem = player.dropInventory(tradingItem);
         
+        if (tempPlayerItem == null)
+        {
+            npc.addInventory(tempItem);
+            return;
+        }
+        
         // add player item to NPC inventory
         
         npc.addInventory(tempPlayerItem);
@@ -338,6 +364,12 @@ public class Game
         System.out.println(player.getInventoryString());
     }
     
+    
+    /** 
+     * "Examine" was entered. This prints out the name and description
+     * of the specified item, so that everyone can see how clever I've
+     * been with the descriptions.
+     */
     private void examineItem(Command command)
     {
        if (!command.hasSecondWord()) {

@@ -1,13 +1,12 @@
 
 /**
- * Write a description of class Exit here.
+ * Exit.java. Stores information on exits, non-lockable
+ * travel avenues in Zuul.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author William S. Judd
  */
 public class Exit
 {
-    // instance variables - replace the example below with your own
     private String direction;
     private Room neighbor;
 
@@ -26,14 +25,7 @@ public class Exit
         this.neighbor = neighbor;
 
     }
-
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
-     
+    
     public String getDirection()
     {
         // put your code here

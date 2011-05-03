@@ -1,13 +1,11 @@
 
 /**
- * Write a description of class Item here.
+ * Item.java. Holds information about each item in the game.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author William S. Judd
  */
 public class Item
 {
-    // instance variables - replace the example below with your own
     private String description;
     private String name;
 
@@ -21,12 +19,7 @@ public class Item
         this.name = name;
     }
 
-    /**
-     * An example of a method - replace this comment with your own
-     * 
-     * @param  y   a sample parameter for a method
-     * @return     the sum of x and y 
-     */
+
     public String getDescription()
     {
         return description;
