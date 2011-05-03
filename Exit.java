@@ -14,6 +14,11 @@ public class Exit
     /**
      * Constructor for objects of class Exit
      */
+     
+     public Exit()
+     {
+     }
+     
     public Exit(String direction, Room neighbor)
     {
         // initialise instance variables
@@ -39,4 +44,15 @@ public class Exit
     {
         return neighbor;
     }
+    
+    public void setDirection(String direction)
+    {
+        this.direction = direction;
+    }
+    
+    public void setNeighbor(Room neighbor)
+    {
+        this.neighbor = neighbor;
+    }
+    
 }

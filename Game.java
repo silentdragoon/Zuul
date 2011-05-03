@@ -50,6 +50,8 @@ public class Game
         outside.setExit("east", theatre);
         outside.setExit("south", lab);
         outside.setExit("dennis", pub);
+        
+        outside.setDoor("portal", office, true);
 
         theatre.setExit("west", outside);
 
@@ -59,6 +61,7 @@ public class Game
         lab.setExit("east", office);
 
         office.setExit("west", lab);
+        office.setDoor("portal", outside, true);
         
         // initialise room items
         outside.setItem("flask", "pretty spangly. It looks like you've got ye flask");
@@ -131,6 +134,10 @@ public class Game
             tradeItem(command);
         else if (commandWord.equals("examine"))
             examineItem(command);
+        else if (commandWord.equals("lock"))
+            lockDoor(command);
+        else if (commandWord.equals("unlock"))
+            unlockDoor(command);
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
@@ -138,6 +145,50 @@ public class Game
     }
 
     // implementations of user commands:
+    
+    private void lockDoor(Command command)
+    {
+        if(!command.hasSecondWord())
+        {
+            System.out.println("Lock what?");
+            return;
+        }
+        
+        String desiredDoor = command.getSecondWord();
+        
+        if (player.checkKey())
+        {    
+            player.getCurrentRoom().getActualDoor(desiredDoor).lock();
+            System.out.println("Door locked");
+        }
+        else
+        {
+            System.out.println("You don't have a key!");
+        }
+    }
+    
+    private void unlockDoor(Command command)
+    {
+        if(!command.hasSecondWord())
+        {
+            System.out.println("Unlock what?");
+            return;
+        }
+        
+        String desiredDoor = command.getSecondWord();
+        
+        if (player.checkKey())
+        {    
+            player.getCurrentRoom().getActualDoor(desiredDoor).unlock();
+            System.out.println("Door unlocked");
+        }
+        else
+        {
+            System.out.println("You don't have a key!");
+        }
+        
+    }
+
 
     /**
      * Print out some help information.
@@ -159,7 +210,8 @@ public class Game
      */
     private void goRoom(Command command) 
     {
-        if(!command.hasSecondWord()) {
+        if(!command.hasSecondWord())
+        {
             // if there is no second word, we don't know where to go...
             System.out.println("Go where?");
             return;
@@ -168,15 +220,36 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
+        // This is the potential next room, via exit
         Room nextRoom = player.getCurrentRoom().getExit(direction);
+        // This is the potential next room, via door
+        Room nextDoor = player.getCurrentRoom().getDoor(direction);
+        
+        if (nextDoor != null)
+        {
+            // There is a door here, then
+            if (player.getCurrentRoom().getLocked(direction) == true)
+            {
+                System.out.println("The door is locked!");
+                return;
+            }
+            else
+            {
+                player.setCurrentRoom(nextDoor);
+                System.out.println(player.getCurrentRoom().getLongDescription());
+                System.out.println(player.getInventoryString());
+                return;
+            }
+        }
 
         if (nextRoom == null)
-            System.out.println("There is no door!");
-        else {
-            player.setCurrentRoom(nextRoom);
-            System.out.println(player.getCurrentRoom().getLongDescription());
-            System.out.println(player.getInventoryString());
-        }
+            System.out.println("There is no exit!");
+        else
+            {
+                player.setCurrentRoom(nextRoom);
+                System.out.println(player.getCurrentRoom().getLongDescription());
+                System.out.println(player.getInventoryString());
+            }
     }
     
     private void dropItem(Command command)

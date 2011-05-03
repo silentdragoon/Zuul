@@ -22,6 +22,7 @@ public class Room
     private HashMap<String, Exit> exits;        // stores exits of this room.
     private HashMap<String, Item> items;        // stores items of this room.
     private HashMap<String, NPC> npcs;
+    private HashMap<String, Door> doors;
 
     /**
      * Create a room described "description". Initially, it has no exits.
@@ -34,6 +35,7 @@ public class Room
         exits = new HashMap<String, Exit>();
         items = new HashMap<String, Item>();
         npcs = new HashMap<String, NPC>();
+        doors = new HashMap<String, Door>();
     }
     
     public void addNPC(String name, String description, String itemname, String itemdesc)
@@ -94,6 +96,12 @@ public class Room
         Exit temp = new Exit(direction, neighbor);
         exits.put(direction, temp);
     }
+    
+    public void setDoor(String direction, Room neighbor, boolean locked)
+    {
+        Door temp = new Door(direction, neighbor, locked);
+        doors.put(direction, temp);
+    }
 
     /**
      * Return the description of the room (the one that was defined in the
@@ -111,7 +119,7 @@ public class Room
      */
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString() + "\n" + getItemString() + "\n" + getNPCString();
+        return "You are " + description + ".\n" + getExitString() + "\n" + getDoorString() + "\n" + getItemString() + "\n" + getNPCString();
     }
 
     /**
@@ -124,6 +132,15 @@ public class Room
         Set<String> keys = exits.keySet();
         for(String exit : keys)
             returnString += " " + exit;
+        return returnString;
+    }
+    
+    private String getDoorString()
+    {
+        String returnString = "Doors:";
+        Set<String> keys = doors.keySet();
+        for(String door : keys)
+            returnString += " " + door;
         return returnString;
     }
     
@@ -151,7 +168,32 @@ public class Room
      */
     public Room getExit(String direction) 
     {
-        return exits.get(direction).getNeighbor();
+        Exit tempExit = exits.get(direction);
+        if (tempExit != null)
+        {
+            return tempExit.getNeighbor();
+        }
+        return null;
+    }
+    
+    public Room getDoor(String direction)
+    {
+        Door tempDoor = doors.get(direction);
+        if (tempDoor != null)
+        {
+            return tempDoor.getNeighbor();
+        }
+        return null;
+    }
+    
+    public boolean getLocked(String direction)
+    {
+        return doors.get(direction).getLocked();
+    }
+    
+    public Door getActualDoor(String direction)
+    {
+        return doors.get(direction);
     }
     
     public Item getItem(String name)

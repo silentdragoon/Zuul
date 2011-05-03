@@ -50,6 +50,15 @@ public class Player
         return returnString;
     }
     
+    public boolean checkKey()
+    {
+        Set<String> keys = inventory.keySet();
+        for(String item : keys)
+            if (item.equals("key"))
+                return true;
+        return false;
+    }
+    
     public String getExamineString(String name)
     {
         String returnString = "You examine the " + name + ".\n";

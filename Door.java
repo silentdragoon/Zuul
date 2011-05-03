@@ -16,9 +16,10 @@ public class Door extends Exit
     public Door(String direction, Room neighbor, boolean locked)
     {
         // initialise instance variables
-        this.direction = direction;
-        this.neighbor = neighbor;
         this.locked = locked;
+        this.setDirection(direction);
+        this.setNeighbor(neighbor);
+        
     }
 
     /**
@@ -39,7 +40,7 @@ public class Door extends Exit
         return;
     }
     
-    public Room getLocked()
+    public boolean getLocked()
     {
         return locked;
     }

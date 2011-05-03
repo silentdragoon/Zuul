@@ -7,6 +7,8 @@ JC = javac
 CLASSES = \
 	Command.java \
 	CommandWords.java \
+	Door.java \
+	Exit.java \
 	Game.java \
 	Item.java \
 	NPC.java \
